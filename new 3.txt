@@ -1,0 +1,414 @@
+ Servlet with JDBC 
+
+Index.html ----------- 
+<!DOCTYPE html> 
+<html> 
+    <head> 
+        <title>Servlet with JDBC</title> 
+        <meta charset="UTF-8"> 
+        <meta name="viewport" content="width=device-width, initial
+scale=1.0"> 
+    </head> 
+    <body> 
+        <div> 
+            <form name="form1" target="output"> 
+                <table> 
+                    <tr> 
+                        <td>Enter Rlno:</td><td><input type="text" 
+name="txtRlno"></td> 
+                    </tr> 
+                    <tr> 
+                        <td>Enter Name:</td><td><input type="text" 
+name="txtName"></td> 
+                    </tr> 
+                    <tr> 
+                        <td>Enter City: </td><td><input type="text" 
+name="txtCity"></td> 
+                    </tr> 
+                </table> 
+                <button type="submit"  
+formaction="/ServletDemo9/InsertData">Insert</button> 
+                <button type="submit" 
+formaction="/ServletDemo9/UpdateData">Update</button> 
+                <button type="submit" 
+formaction="/ServletDemo9/DeleteData">Delete</button> 
+                <button type="submit" 
+formaction="/ServletDemo9/ViewData">View</button> 
+            </form> 
+        </div> 
+        <iframe name="output"></iframe> 
+    </body> 
+</html>
+InsertData.java ------------------------- 
+ 
+import java.io.IOException; 
+import java.io.PrintWriter; 
+import javax.servlet.ServletException; 
+import javax.servlet.http.HttpServlet; 
+import javax.servlet.http.HttpServletRequest; 
+import javax.servlet.http.HttpServletResponse; 
+import java.sql.*; 
+import javax.servlet.RequestDispatcher; 
+ 
+public class InsertData extends HttpServlet { 
+    protected void processRequest(HttpServletRequest request, 
+HttpServletResponse response) 
+            throws ServletException, IOException { 
+        response.setContentType("text/html;charset=UTF-8"); 
+        try (PrintWriter out = response.getWriter()) { 
+            out.println("<!DOCTYPE html>"); 
+            out.println("<html>"); 
+            out.println("<head>"); 
+            out.println("<title>Servlet InsertData</title>");            
+            out.println("</head>"); 
+            out.println("<body>"); 
+            try{ 
+                Class.forName("com.mysql.jdbc.Driver"); 
+                Connection 
+con=DriverManager.getConnection("jdbc:mysql://localhost/College", 
+"root", ""); 
+                Statement st=con.createStatement(); 
+                String r,s,c; 
+                r=request.getParameter("txtRlno"); 
+                s=request.getParameter("txtName"); 
+                c=request.getParameter("txtCity"); 
+                String qry="Insert into student 
+values("+r+",'"+s+"','"+c+"')"; 
+                //out.print(qry); 
+                int rows = st.executeUpdate(qry); 
+                out.println(rows+ "<b> Record(s) Inserted</b><br>"); 
+                st.close(); 
+                con.close(); 
+            }catch(Exception e){ 
+                e.printStackTrace(); 
+            } 
+            RequestDispatcher rd = 
+request.getRequestDispatcher("ViewData"); 
+            rd.forward(request,response);             
+            out.println("</body>"); 
+            out.println("</html>"); 
+        } 
+    } 
+    @Override 
+  protected void doGet(HttpServletRequest request, 
+HttpServletResponse response) 
+            throws ServletException, IOException { 
+        processRequest(request, response); 
+    } 
+ 
+    @Override 
+    protected void doPost(HttpServletRequest request, 
+HttpServletResponse response) 
+            throws ServletException, IOException { 
+        processRequest(request, response); 
+    } 
+ 
+    @Override 
+    public String getServletInfo() { 
+        return "Short description"; 
+    }// </editor-fold> 
+} ------------------------------------------------------ 
+ViewData.java ------------- 
+import java.io.IOException; 
+import java.io.PrintWriter; 
+import javax.servlet.ServletException; 
+import javax.servlet.http.HttpServlet; 
+import javax.servlet.http.HttpServletRequest; 
+import javax.servlet.http.HttpServletResponse; 
+import java.sql.*; 
+ 
+public class ViewData extends HttpServlet { 
+    protected void processRequest(HttpServletRequest request, 
+HttpServletResponse response) 
+            throws ServletException, IOException { 
+        response.setContentType("text/html;charset=UTF-8"); 
+        try (PrintWriter out = response.getWriter()) { 
+            out.println("<!DOCTYPE html>"); 
+            out.println("<html>"); 
+            out.println("<head>"); 
+            out.println("<title>Servlet ViewData</title>");            
+            out.println("</head>"); 
+            out.println("<body>"); 
+            try{ 
+                Class.forName("com.mysql.jdbc.Driver"); 
+                Connection 
+con=DriverManager.getConnection("jdbc:mysql://localhost/College", 
+"root", ""); 
+                Statement st=con.createStatement(); 
+                String qry="select * from student"; 
+                ResultSet rs = st.executeQuery(qry); 
+                out.println("<table border=1>"); 
+                out.println("<thead><b>Student's List</b></thead>"); 
+                out.println("<tr>"); 
+                out.println("<th>Rlno<th>Name<th>City</tr>"); 
+                while(rs.next()){ 
+                    int r; 
+                    String s,c; 
+                    r=rs.getInt("rlno");
+					 s=rs.getString("sname"); 
+                    c=rs.getString("city"); 
+                    out.println("<tr>"); 
+                    out.println("<td>"+r+"<td>"+s+"<td>"+c+"</tr>"); 
+                } 
+                out.println("</table>"); 
+                rs.close(); 
+                st.close(); 
+                con.close(); 
+            }catch(Exception e){ 
+                e.printStackTrace(); 
+            } 
+            out.println("</body>"); 
+            out.println("</html>"); 
+        } 
+    } 
+ 
+    @Override 
+    protected void doGet(HttpServletRequest request, 
+HttpServletResponse response) 
+            throws ServletException, IOException { 
+        processRequest(request, response); 
+    } 
+ 
+    @Override 
+    protected void doPost(HttpServletRequest request, 
+HttpServletResponse response) 
+            throws ServletException, IOException { 
+        processRequest(request, response); 
+    } 
+ 
+    @Override 
+    public String getServletInfo() { 
+        return "Short description"; 
+    }// </editor-fold> 
+}                  ------------------------------------------------------ 
+DeleteData.java ------------- 
+import java.io.IOException; 
+import java.io.PrintWriter; 
+import java.sql.Connection; 
+import java.sql.DriverManager; 
+import java.sql.Statement; 
+import javax.servlet.ServletException; 
+import javax.servlet.http.HttpServlet; 
+import javax.servlet.http.HttpServletRequest; 
+import javax.servlet.http.HttpServletResponse; 
+import javax.servlet.RequestDispatcher; 
+ 
+public class DeleteData extends HttpServlet { 
+ 
+    protected void processRequest(HttpServletRequest request, 
+HttpServletResponse response) 
+            throws ServletException, IOException { 
+        response.setContentType("text/html;charset=UTF-8"); 
+        try (PrintWriter out = response.getWriter()) { 
+ out.println("<!DOCTYPE html>"); 
+            out.println("<html>"); 
+            out.println("<head>"); 
+            out.println("<title>Servlet DeleteData</title>");            
+            out.println("</head>"); 
+            out.println("<body>"); 
+            try{ 
+                Class.forName("com.mysql.jdbc.Driver"); 
+                Connection 
+con=DriverManager.getConnection("jdbc:mysql://localhost/College", 
+"root", ""); 
+                Statement st=con.createStatement(); 
+                String r; 
+                r=request.getParameter("txtRlno"); 
+                String qry="Delete from student where rlno="+r; 
+                int rows = st.executeUpdate(qry); 
+                out.println(rows+ "<b> Record(s) Deletede</b>"); 
+                st.close(); 
+                con.close(); 
+            }catch(Exception e){ 
+                e.printStackTrace(); 
+            }  
+            RequestDispatcher rd = 
+request.getRequestDispatcher("ViewData"); 
+            rd.forward(request,response); 
+            out.println("</body>"); 
+            out.println("</html>"); 
+        } 
+    } 
+ 
+    @Override 
+    protected void doGet(HttpServletRequest request, 
+HttpServletResponse response) 
+            throws ServletException, IOException { 
+        processRequest(request, response); 
+    } 
+ 
+    @Override 
+    protected void doPost(HttpServletRequest request, 
+HttpServletResponse response) 
+            throws ServletException, IOException { 
+        processRequest(request, response); 
+    } 
+ 
+    @Override 
+    public String getServletInfo() { 
+        return "Short description"; 
+    }// </editor-fold> 
+} ------------------------------------------------------ 
+UpdateData.java ------------- 
+import java.io.IOException; 
+import java.io.PrintWriter; 
+import javax.servlet.ServletException; 
+import javax.servlet.http.HttpServlet; 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse; 
+import java.sql.*; 
+import javax.servlet.RequestDispatcher; 
+ 
+public class UpdateData extends HttpServlet { 
+ 
+    protected void processRequest(HttpServletRequest request, 
+HttpServletResponse response) 
+            throws ServletException, IOException { 
+        response.setContentType("text/html;charset=UTF-8"); 
+        try (PrintWriter out = response.getWriter()) { 
+            out.println("<!DOCTYPE html>"); 
+            out.println("<html>"); 
+            out.println("<head>"); 
+            out.println("<title>Servlet UpdateData</title>");            
+            out.println("</head>"); 
+            out.println("<body>"); 
+            try{ 
+                Class.forName("com.mysql.jdbc.Driver"); 
+                Connection 
+con=DriverManager.getConnection("jdbc:mysql://localhost/College", 
+"root", ""); 
+                Statement st=con.createStatement(); 
+                String r,s,c; 
+                r=request.getParameter("txtRlno"); 
+                s=request.getParameter("txtName"); 
+                c=request.getParameter("txtCity"); 
+                String qry="Update student set sname='"+s+"', 
+city='"+c+"' where rlno="+r; 
+                //out.print(qry); 
+                int rows = st.executeUpdate(qry); 
+                out.println(rows+ "<b> Record(s) Updated</b><br>"); 
+                st.close(); 
+                con.close(); 
+            }catch(Exception e){ 
+                e.printStackTrace(); 
+            } 
+            RequestDispatcher rd = 
+request.getRequestDispatcher("ViewData"); 
+            rd.forward(request,response);             
+            out.println("</body>"); 
+            out.println("</html>"); 
+        } 
+    } 
+ 
+    @Override 
+    protected void doGet(HttpServletRequest request, 
+HttpServletResponse response) 
+            throws ServletException, IOException { 
+        processRequest(request, response); 
+    } 
+ 
+    @Override 
+    protected void doPost(HttpServletRequest request, 
+HttpServletResponse response) 
+            throws ServletException, IOException { 
+        processRequest(request, response); 
+   } 
+ 
+    @Override 
+    public String getServletInfo() { 
+        return "Short description"; 
+    }// </editor-fold> 
+} 
+
+
+
+
+python
+
+#crud opretion with GUI
+import mysql.connector as con
+import customtkinter as Ctk
+from tkinter import messagebox
+
+mydb = con.connect(host = "localhost",user = "root",password = "",database = "collage")
+mycur = mydb.cursor()
+
+#insert a new stud
+
+def Insert_stud():
+    id = txtid.get()
+    name = txtnm.get()
+    cls = txtclass.get()
+    sql = "insert into stud (id , name , class) values (%s,%s,%s)"
+    values = (id,name,cls)
+    try :
+        mycur.execute(sql,values)
+        mydb.commit()
+        messagebox.showinfo("Insert","Stubent record inserted successfuly")
+    except Exception as e:
+        messagebox.showerror("Error",f"Error occurred : {e}")
+ 
+def search_stud():
+    txtnm.delete(0,Ctk.END)
+    txtclass.delete(0,Ctk.END)
+    id = txtid.get()
+    sql = "select * from stud where id = %s"
+    values = (id,)
+    mycur.execute(sql,values)
+    myres = mycur.fetchall()
+    if myres :
+        for x in myres:
+            txtnm.insert(0,x[1])
+            txtclass.insert(0,x[2])
+    else:
+        messagebox.showinfo("Result","No Record Found !")
+
+def update_stud():
+    id = txtid.get()
+    name = txtnm.get()
+    cls = txtclass.get()
+    sql = "Update stud SET name = %s , class = %s where id =%s"
+    values = (name,cls,id)
+    try :
+        mycur.execute(sql,values)
+        mydb.commit()
+        if mycur.rowcount == 0:
+            messagebox.showinfo("Update","No Record Found")
+        else:
+            messagebox.showinfo("Update","Stubent record Update successfuly")
+            txtnm.delete(0,Ctk.END)
+            txtclass.delete(0,Ctk.END)
+    except Exception as e:
+        messagebox.showerror("Error",f"Error occurred : {e}")
+
+def delete_stud():
+    id = txtid.get()
+    sql = "Delete from stud where id = %s"
+    values = (id,)
+    try :
+        mycur.execute(sql,values)
+        mydb.commit()
+        if mycur.rowcount == 0:
+            messagebox.showinfo("Delete","No Record Found")
+        else:
+            messagebox.showinfo("Delete","Stubent record Delete successfuly")
+    except Exception as e:
+        messagebox.showerror("Error",f"Error occurred : {e}")
+root = Ctk.CTk()
+root.title("Student Manegement")
+root.geometry("500x500")
+Ctk.CTkLabel(root,text="Enter student Id", font=("Ubanity",12),text_color="yellow").pack(pady = 3,fill ='x')
+txtid = Ctk.CTkEntry(root, font=("Ubanity",12))
+txtid.pack(pady = 3,fill ='x')
+Ctk.CTkLabel(root,text="Enter student Name", font=("Ubanity",12),text_color="yellow").pack(pady = 3,fill ='x')
+txtnm = Ctk.CTkEntry(root, font=("Ubanity",12))
+txtnm.pack(pady = 3,fill ='x')
+Ctk.CTkLabel(root,text="Enter student Class", font=("Ubanity",12),text_color="yellow").pack(pady = 3,fill ='x')
+txtclass = Ctk.CTkEntry(root, font=("Ubanity",12))
+txtclass.pack(pady = 3,fill ='x')
+Ctk.CTkButton(root,text="Insert student",command = Insert_stud).pack(pady = 3,fill ='x')
+Ctk.CTkButton(root,text="Search student",command = search_stud).pack(pady = 3,fill ='x')
+Ctk.CTkButton(root,text="Update student",command = update_stud).pack(pady = 3,fill ='x')
+Ctk.CTkButton(root,text="Delete student",command = delete_stud).pack(pady = 3,fill ='x')
+
+root.mainloop()
