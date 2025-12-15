@@ -1,0 +1,652 @@
+
+
+1️⃣ WAP: Hello World
+
+#include <stdio.h>
+
+int main() {
+    printf("Hello World");
+    return 0;
+}
+
+
+---
+
+2️⃣ Area of Circle
+
+#include <stdio.h>
+
+int main() {
+    float r, area;
+    printf("Enter radius: ");
+    scanf("%f", &r);
+
+    area = 3.14159 * r * r;
+    printf("Area of circle = %.2f", area);
+    return 0;
+}
+
+
+---
+
+3️⃣ Area of Triangle
+
+#include <stdio.h>
+
+int main() {
+    float b, h, area;
+    printf("Enter base and height: ");
+    scanf("%f %f", &b, &h);
+
+    area = 0.5 * b * h;
+    printf("Area of triangle = %.2f", area);
+    return 0;
+}
+
+
+---
+
+4️⃣ Min & Max (Without Conditional Operator)
+
+#include <stdio.h>
+
+int main() {
+    int a, b;
+    printf("Enter two numbers: ");
+    scanf("%d %d", &a, &b);
+
+    if (a > b)
+        printf("Max = %d\nMin = %d", a, b);
+    else
+        printf("Max = %d\nMin = %d", b, a);
+
+    return 0;
+}
+
+
+---
+
+5️⃣ Even / Odd Without %
+
+#include <stdio.h>
+
+int main() {
+    int n;
+    printf("Enter number: ");
+    scanf("%d", &n);
+
+    if ((n / 2) * 2 == n)
+        printf("Even");
+    else
+        printf("Odd");
+
+    return 0;
+}
+
+
+---
+
+6️⃣ Swap Two Numbers (+ - * /)
+
+Using + and -
+
+#include <stdio.h>
+
+int main() {
+    int a, b;
+    printf("Enter a and b: ");
+    scanf("%d %d", &a, &b);
+
+    a = a + b;
+    b = a - b;
+    a = a - b;
+
+    printf("After swap: a=%d b=%d", a, b);
+    return 0;
+}
+
+
+---
+
+7️⃣ Conditions & Loops (1 to 10)
+
+#include <stdio.h>
+
+int main() {
+    int i;
+    for (i = 1; i <= 10; i++)
+        printf("%d ", i);
+
+    return 0;
+}
+
+
+---
+
+8️⃣ Find Maximum Among 5 Numbers (if–else)
+
+#include <stdio.h>
+
+int main() {
+    int a, b, c, d, e, max;
+    printf("Enter 5 numbers: ");
+    scanf("%d %d %d %d %d", &a, &b, &c, &d, &e);
+
+    max = a;
+    if (b > max) max = b;
+    if (c > max) max = c;
+    if (d > max) max = d;
+    if (e > max) max = e;
+
+    printf("Maximum = %d", max);
+    return 0;
+}
+
+
+---
+
+9️⃣ Switch Case (Simple Calculator)
+
+#include <stdio.h>
+
+int main() {
+    int a, b;
+    char op;
+
+    printf("Enter operator (+ - * /): ");
+    scanf(" %c", &op);
+    printf("Enter two numbers: ");
+    scanf("%d %d", &a, &b);
+
+    switch (op) {
+        case '+': printf("Result = %d", a + b); break;
+        case '-': printf("Result = %d", a - b); break;
+        case '*': printf("Result = %d", a * b); break;
+        case '/': printf("Result = %d", a / b); break;
+        default: printf("Invalid operator");
+    }
+    return 0;
+}
+
+
+---
+
+🔟 Palindrome Number
+
+#include <stdio.h>
+
+int main() {
+    int n, rev = 0, temp;
+    printf("Enter number: ");
+    scanf("%d", &n);
+
+    temp = n;
+    while (n > 0) {
+        rev = rev * 10 + n % 10;
+        n /= 10;
+    }
+
+    if (rev == temp)
+        printf("Palindrome");
+    else
+        printf("Not Palindrome");
+
+    return 0;
+}
+
+
+---
+
+1️⃣1️⃣ Sum of Digits
+
+#include <stdio.h>
+
+int main() {
+    int n, sum = 0;
+    printf("Enter number: ");
+    scanf("%d", &n);
+
+    while (n > 0) {
+        sum += n % 10;
+        n /= 10;
+    }
+
+    printf("Sum of digits = %d", sum);
+    return 0;
+}
+
+
+---
+
+1️⃣2️⃣ Count of Digits
+
+#include <stdio.h>
+
+int main() {
+    int n, count = 0;
+    printf("Enter number: ");
+    scanf("%d", &n);
+
+    while (n > 0) {
+        count++;
+        n /= 10;
+    }
+
+    printf("Total digits = %d", count);
+    return 0;
+}
+
+
+---
+
+1️⃣3️⃣ Reverse Number
+
+#include <stdio.h>
+
+int main() {
+    int n, rev = 0;
+    printf("Enter number: ");
+    scanf("%d", &n);
+
+    while (n > 0) {
+        rev = rev * 10 + n % 10;
+        n /= 10;
+    }
+
+    printf("Reverse = %d", rev);
+    return 0;
+}
+
+
+
+
+1️⃣4️⃣ 1D Array (Sum, Sub, Mul)
+
+#include <stdio.h>
+
+int main() {
+    int a[2], b[2], i;
+
+    printf("Enter 2 elements of first array: ");
+    for (i = 0; i < 2; i++) scanf("%d", &a[i]);
+
+    printf("Enter 2 elements of second array: ");
+    for (i = 0; i < 2; i++) scanf("%d", &b[i]);
+
+    printf("Sum: ");
+    for (i = 0; i < 2; i++) printf("%d ", a[i] + b[i]);
+
+    printf("\nMul: ");
+    for (i = 0; i < 2; i++) printf("%d ", a[i] * b[i]);
+
+    return 0;
+}
+
+
+
+1️⃣5️⃣ 2D Array (Input, Sum, Mul)
+
+#include <stdio.h>
+
+int main() {
+    int a[2][2], b[2][2], sum[2][2], i, j;
+
+    printf("Enter first matrix:\n");
+    for (i = 0; i < 2; i++)
+        for (j = 0; j < 2; j++)
+            scanf("%d", &a[i][j]);
+
+    printf("Enter second matrix:\n");
+    for (i = 0; i < 2; i++)
+        for (j = 0; j < 2; j++)
+            scanf("%d", &b[i][j]);
+
+    printf("Sum matrix:\n");
+    for (i = 0; i < 2; i++) {
+        for (j = 0; j < 2; j++) {
+            sum[i][j] = a[i][j] + b[i][j];
+            printf("%d ", sum[i][j]);
+        }
+        printf("\n");
+    }
+    return 0;
+}
+
+
+
+
+🔢 Fibonacci Series (Using Loop)
+
+Fibonacci Series up to n terms
+
+#include <stdio.h>
+
+int main() {
+    int n, a = 0, b = 1, c, i;
+
+    printf("Enter number of terms: ");
+    scanf("%d", &n);
+
+    printf("Fibonacci Series: ");
+    for (i = 1; i <= n; i++) {
+        printf("%d ", a);
+        c = a + b;
+        a = b;
+        b = c;
+    }
+    return 0;
+}
+
+📌 Example Output:
+0 1 1 2 3 5 8
+
+
+---
+
+📈 Most Common Number Series (Using Loops)
+
+
+---
+
+1️⃣ Natural Numbers Series
+
+#include <stdio.h>
+
+int main() {
+    int i;
+    for (i = 1; i <= 10; i++)
+        printf("%d ", i);
+    return 0;
+}
+
+
+---
+
+2️⃣ Even Number Series
+
+#include <stdio.h>
+
+int main() {
+    int i;
+    for (i = 2; i <= 20; i += 2)
+        printf("%d ", i);
+    return 0;
+}
+
+
+---
+
+3️⃣ Odd Number Series
+
+#include <stdio.h>
+
+int main() {
+    int i;
+    for (i = 1; i <= 20; i += 2)
+        printf("%d ", i);
+    return 0;
+}
+
+
+---
+
+4️⃣ Square Number Series
+
+#include <stdio.h>
+
+int main() {
+    int i;
+    for (i = 1; i <= 5; i++)
+        printf("%d ", i * i);
+    return 0;
+}
+
+📌 Output: 1 4 9 16 25
+
+
+---
+
+5️⃣ Cube Number Series
+
+#include <stdio.h>
+
+int main() {
+    int i;
+    for (i = 1; i <= 5; i++)
+        printf("%d ", i * i * i);
+    return 0;
+}
+
+📌 Output: 1 8 27 64 125
+
+
+---
+
+6️⃣ Arithmetic Progression (AP)
+
+#include <stdio.h>
+
+int main() {
+    int a = 2, d = 3, i;
+
+    for (i = 1; i <= 5; i++) {
+        printf("%d ", a);
+        a = a + d;
+    }
+    return 0;
+}
+
+📌 Output: 2 5 8 11 14
+
+
+---
+
+⭐ Pattern Programs Using Loops
+
+
+---
+
+1️⃣ Star Square Pattern
+
+* * *
+* * *
+* * *
+
+#include <stdio.h>
+
+int main() {
+    int i, j;
+    for (i = 1; i <= 3; i++) {
+        for (j = 1; j <= 3; j++)
+            printf("* ");
+        printf("\n");
+    }
+    return 0;
+}
+
+
+---
+
+2️⃣ Right Triangle Star Pattern
+
+*
+* *
+* * *
+* * * *
+
+#include <stdio.h>
+
+int main() {
+    int i, j;
+    for (i = 1; i <= 4; i++) {
+        for (j = 1; j <= i; j++)
+            printf("* ");
+        printf("\n");
+    }
+    return 0;
+}
+
+
+---
+
+3️⃣ Inverted Triangle Pattern
+
+* * * *
+* * *
+* *
+*
+
+#include <stdio.h>
+
+int main() {
+    int i, j;
+    for (i = 4; i >= 1; i--) {
+        for (j = 1; j <= i; j++)
+            printf("* ");
+        printf("\n");
+    }
+    return 0;
+}
+
+
+---
+
+4️⃣ Number Triangle Pattern
+
+1
+1 2
+1 2 3
+1 2 3 4
+
+#include <stdio.h>
+
+int main() {
+    int i, j;
+    for (i = 1; i <= 4; i++) {
+        for (j = 1; j <= i; j++)
+            printf("%d ", j);
+        printf("\n");
+    }
+    return 0;
+}
+
+
+---
+
+5️⃣ Same Number Pattern
+
+1
+2 2
+3 3 3
+4 4 4 4
+
+#include <stdio.h>
+
+int main() {
+    int i, j;
+    for (i = 1; i <= 4; i++) {
+        for (j = 1; j <= i; j++)
+            printf("%d ", i);
+        printf("\n");
+    }
+    return 0;
+}
+
+
+---
+
+6️⃣ Pyramid Star Pattern
+
+*
+  * *
+ * * *
+* * * *
+
+#include <stdio.h>
+
+int main() {
+    int i, j, k;
+
+    for (i = 1; i <= 4; i++) {
+        for (k = 4; k > i; k--)
+            printf(" ");
+        for (j = 1; j <= i; j++)
+            printf("* ");
+        printf("\n");
+    }
+    return 0;
+}
+
+
+⚠️ Assumption used (as per most textbooks):
+
+1 year = 365 days
+
+1 month = 30 days
+
+
+
+---
+
+✅ C Program: Convert Days into Years, Months, and Days
+
+#include <stdio.h>
+
+int main() {
+    int days, years, months, remaining_days;
+
+    printf("Enter total number of days: ");
+    scanf("%d", &days);
+
+    years = days / 365;
+    days = days % 365;
+
+    months = days / 30;
+    remaining_days = days % 30;
+
+    printf("Years = %d\n", years);
+    printf("Months = %d\n", months);
+    printf("Days = %d\n", remaining_days);
+
+    return 0;
+}
+
+
+---
+
+🧪 Example Output
+
+Input
+
+Enter total number of days: 800
+
+Output
+
+Years = 2
+Months = 2
+Days = 10
+
+
+---
+
+🧠 Logic Explanation (For Viva / Exam)
+
+1. Divide total days by 365 to get years
+
+
+2. Find remaining days using modulus (%)
+
+
+3. Divide remaining days by 30 to get months
+
+
+4. Remaining value gives final days
+
+
+
+
+---
+
+
+
+
