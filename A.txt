@@ -49,6 +49,21 @@ int main() {
 4️⃣ Min & Max (Without Conditional Operator)
 
 #include <stdio.h>
+#include <stdlib.h>  // for abs()
+
+int main() {
+    int a = 10, b = 20;
+
+    int max = (a + b + abs(a - b)) / 2;
+    int min = (a + b - abs(a - b)) / 2;
+
+    printf("Max = %d\n", max);
+    printf("Min = %d\n", min);
+
+    return 0;
+}
+
+#include <stdio.h>
 
 int main() {
     int a, b;
@@ -646,6 +661,7 @@ Days = 10
 
 
 ---
+
 
 
 
