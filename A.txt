@@ -1,668 +1,731 @@
+```sql
+CREATE TABLE client_master (
+  client_no VARCHAR2(6) PRIMARY KEY,
+  name VARCHAR2(20) NOT NULL,
+  address1 VARCHAR2(30),
+  address2 VARCHAR2(30),
+  city VARCHAR2(15),
+  state VARCHAR2(15),
+  pincode NUMBER(6),
+  bal_due NUMBER(10,2)
+);
+
+```sql
+INSERT INTO client_master VALUES ('0001','Ivan',NULL,NULL,'Bombay','Maharashtra',400054,15000);
 
 
-1️⃣ WAP: Hello World
+## **Q13. Delete client 0001**
 
-#include <stdio.h>
+```sql
+DELETE FROM client_master WHERE client_no='0001';
 
-int main() {
-    printf("Hello World");
-    return 0;
-}
+## **Q18. Change balance due of client 0001 to 1000**
 
+```sql
+UPDATE client_master SET bal_due=1000 WHERE client_no='0001';
+```
 
----
+## **Q19. Find products with price >1500 and new price +15%**
 
-2️⃣ Area of Circle
+```sql
+SELECT product_no, sell_price, sell_price*1.15 AS new_price
+FROM product_master WHERE sell_price > 1500;
+```
 
-#include <stdio.h>
+## **Q20. Sort products by description**
 
-int main() {
-    float r, area;
-    printf("Enter radius: ");
-    scanf("%f", &r);
+```sql
+SELECT * FROM product_master ORDER BY description;
+```
 
-    area = 3.14159 * r * r;
-    printf("Area of circle = %.2f", area);
-    return 0;
-}
+## **Q21. Rename Client_Master to Clients**
 
+```sql
+ALTER TABLE client_master RENAME TO clients;
+```
 
----
+## **Q22. Rename Product_Master to Products**
 
-3️⃣ Area of Triangle
+```sql
+ALTER TABLE product_master RENAME TO products;
+```
 
-#include <stdio.h>
+## **Q23. Drop table Customer**
 
-int main() {
-    float b, h, area;
-    printf("Enter base and height: ");
-    scanf("%f %f", &b, &h);
+```sql
+DROP TABLE customer;
 
-    area = 0.5 * b * h;
-    printf("Area of triangle = %.2f", area);
-    return 0;
-}
+## **Q24. Add Country column and update as India**
 
-
----
-
-4️⃣ Min & Max (Without Conditional Operator)
-
-#include <stdio.h>
-#include <stdlib.h>  // for abs()
-
-int main() {
-    int a = 10, b = 20;
-
-    int max = (a + b + abs(a - b)) / 2;
-    int min = (a + b - abs(a - b)) / 2;
-
-    printf("Max = %d\n", max);
-    printf("Min = %d\n", min);
-
-    return 0;
-}
-
-#include <stdio.h>
-
-int main() {
-    int a, b;
-    printf("Enter two numbers: ");
-    scanf("%d %d", &a, &b);
-
-    if (a > b)
-        printf("Max = %d\nMin = %d", a, b);
-    else
-        printf("Max = %d\nMin = %d", b, a);
-
-    return 0;
-}
-
+```sql
+ALTER TABLE client_master ADD country VARCHAR2(15);
+UPDATE client_master SET country='India';
+```
 
 ---
 
-5️⃣ Even / Odd Without %
-
-#include <stdio.h>
-
-int main() {
-    int n;
-    printf("Enter number: ");
-    scanf("%d", &n);
-
-    if ((n / 2) * 2 == n)
-        printf("Even");
-    else
-        printf("Odd");
-
-    return 0;
-}
-
+# ✅ **ASSIGNMENT – 2**
 
 ---
 
-6️⃣ Swap Two Numbers (+ - * /)
+## **Q1. Count total number of books**
 
-Using + and -
+```sql
+SELECT COUNT(*) FROM book;
+```
 
-#include <stdio.h>
+## **Q2. Calculate average price**
 
-int main() {
-    int a, b;
-    printf("Enter a and b: ");
-    scanf("%d %d", &a, &b);
+```sql
+SELECT AVG(price) FROM book;
+```
 
-    a = a + b;
-    b = a - b;
-    a = a - b;
+## **Q3. Find minimum price**
 
-    printf("After swap: a=%d b=%d", a, b);
-    return 0;
-}
+```sql
+SELECT MIN(price) FROM book;
+```
 
+## **Q4. Books priced less than 600**
 
----
+```sql
+SELECT * FROM book WHERE price < 600;
+```
 
-7️⃣ Conditions & Loops (1 to 10)
+## **Q5. List titles in capital letters**
 
-#include <stdio.h>
+```sql
+SELECT UPPER(title) FROM book;
+```
 
-int main() {
-    int i;
-    for (i = 1; i <= 10; i++)
-        printf("%d ", i);
+## **Q6. Count number of publishers**
 
-    return 0;
-}
+```sql
+SELECT COUNT(DISTINCT publisher) FROM book;
+```
 
+## **Q7. List book title with author**
 
----
+```sql
+SELECT title, author FROM book;
+```
 
-8️⃣ Find Maximum Among 5 Numbers (if–else)
+## **Q8. Modify publisher of “Let us C”**
 
-#include <stdio.h>
+```sql
+UPDATE book SET publisher='BPB' WHERE title='Let us C';
+```
 
-int main() {
-    int a, b, c, d, e, max;
-    printf("Enter 5 numbers: ");
-    scanf("%d %d %d %d %d", &a, &b, &c, &d, &e);
+## **Q9. Sort books by year (descending)**
 
-    max = a;
-    if (b > max) max = b;
-    if (c > max) max = c;
-    if (d > max) max = d;
-    if (e > max) max = e;
+```sql
+SELECT * FROM book ORDER BY year DESC;
+```
 
-    printf("Maximum = %d", max);
-    return 0;
-}
+## **Q10. Books published by Mc Graw Hill**
 
+```sql
+SELECT * FROM book WHERE publisher='Mc Graw Hill';
+```
 
----
+## **Q11. Books written by E. Balagurusamy**
 
-9️⃣ Switch Case (Simple Calculator)
+```sql
+SELECT COUNT(*) FROM book WHERE author='E. Balagurusamy';
+```
 
-#include <stdio.h>
+## **Q12. Books starting with letter O**
 
-int main() {
-    int a, b;
-    char op;
+```sql
+SELECT * FROM book WHERE title LIKE 'O%';
+```
 
-    printf("Enter operator (+ - * /): ");
-    scanf(" %c", &op);
-    printf("Enter two numbers: ");
-    scanf("%d %d", &a, &b);
+## **Q13. Discount of 100 on each book**
 
-    switch (op) {
-        case '+': printf("Result = %d", a + b); break;
-        case '-': printf("Result = %d", a - b); break;
-        case '*': printf("Result = %d", a * b); break;
-        case '/': printf("Result = %d", a / b); break;
-        default: printf("Invalid operator");
-    }
-    return 0;
-}
+```sql
+SELECT title, price-100 AS discounted_price FROM book;
+```
 
+## **Q14. Drop Year column**
 
----
+```sql
+ALTER TABLE book DROP COLUMN year;
+```
 
-🔟 Palindrome Number
+## **Q15. Pad title with ‘@’ to length 30**
 
-#include <stdio.h>
+```sql
+SELECT RPAD(title,30,'@') FROM book;
+```
 
-int main() {
-    int n, rev = 0, temp;
-    printf("Enter number: ");
-    scanf("%d", &n);
+## **Q16. Insert a new record**
 
-    temp = n;
-    while (n > 0) {
-        rev = rev * 10 + n % 10;
-        n /= 10;
-    }
+```sql
+INSERT INTO book VALUES (8,'DBMS','Navathe','Pearson',2021,600,700);
+```
 
-    if (rev == temp)
-        printf("Palindrome");
-    else
-        printf("Not Palindrome");
+## **Q17. Add BookId column and insert values**
 
-    return 0;
-}
+```sql
+ALTER TABLE book ADD bookid NUMBER;
+UPDATE book SET bookid=id;
+```
 
+## **Q18. Delete “Let us C” book**
 
----
+```sql
+DELETE FROM book WHERE title='Let us C';
 
-1️⃣1️⃣ Sum of Digits
+## **1. Cursor to insert records from STUDENT to STUDENT1 where Branch = 'CE'**
 
-#include <stdio.h>
-
-int main() {
-    int n, sum = 0;
-    printf("Enter number: ");
-    scanf("%d", &n);
-
-    while (n > 0) {
-        sum += n % 10;
-        n /= 10;
-    }
-
-    printf("Sum of digits = %d", sum);
-    return 0;
-}
-
+```sql
+DECLARE
+  CURSOR c1 IS SELECT * FROM student WHERE branch='CE';
+BEGIN
+  FOR i IN c1 LOOP
+    INSERT INTO student1 VALUES(i.rno, i.name, i.branch);
+  END LOOP;
+END;
+/
+```
 
 ---
 
-1️⃣2️⃣ Count of Digits
+## **2. Cursor to update SPI (SPI = SPI − 7) if SPI ≥ 0**
 
-#include <stdio.h>
-
-int main() {
-    int n, count = 0;
-    printf("Enter number: ");
-    scanf("%d", &n);
-
-    while (n > 0) {
-        count++;
-        n /= 10;
-    }
-
-    printf("Total digits = %d", count);
-    return 0;
-}
-
+```sql
+DECLARE
+  CURSOR c1 IS SELECT rno, spi FROM result FOR UPDATE;
+BEGIN
+  FOR i IN c1 LOOP
+    IF i.spi - 7 >= 0 THEN
+      UPDATE result SET spi = spi - 7 WHERE CURRENT OF c1;
+    END IF;
+  END LOOP;
+END;
+/
+```
 
 ---
 
-1️⃣3️⃣ Reverse Number
+## **3. Function to return sum of numbers from 1 to 50**
 
-#include <stdio.h>
-
-int main() {
-    int n, rev = 0;
-    printf("Enter number: ");
-    scanf("%d", &n);
-
-    while (n > 0) {
-        rev = rev * 10 + n % 10;
-        n /= 10;
-    }
-
-    printf("Reverse = %d", rev);
-    return 0;
-}
-
-
-
-
-1️⃣4️⃣ 1D Array (Sum, Sub, Mul)
-
-#include <stdio.h>
-
-int main() {
-    int a[2], b[2], i;
-
-    printf("Enter 2 elements of first array: ");
-    for (i = 0; i < 2; i++) scanf("%d", &a[i]);
-
-    printf("Enter 2 elements of second array: ");
-    for (i = 0; i < 2; i++) scanf("%d", &b[i]);
-
-    printf("Sum: ");
-    for (i = 0; i < 2; i++) printf("%d ", a[i] + b[i]);
-
-    printf("\nMul: ");
-    for (i = 0; i < 2; i++) printf("%d ", a[i] * b[i]);
-
-    return 0;
-}
-
-
-
-1️⃣5️⃣ 2D Array (Input, Sum, Mul)
-
-#include <stdio.h>
-
-int main() {
-    int a[2][2], b[2][2], sum[2][2], i, j;
-
-    printf("Enter first matrix:\n");
-    for (i = 0; i < 2; i++)
-        for (j = 0; j < 2; j++)
-            scanf("%d", &a[i][j]);
-
-    printf("Enter second matrix:\n");
-    for (i = 0; i < 2; i++)
-        for (j = 0; j < 2; j++)
-            scanf("%d", &b[i][j]);
-
-    printf("Sum matrix:\n");
-    for (i = 0; i < 2; i++) {
-        for (j = 0; j < 2; j++) {
-            sum[i][j] = a[i][j] + b[i][j];
-            printf("%d ", sum[i][j]);
-        }
-        printf("\n");
-    }
-    return 0;
-}
-
-
-
-
-🔢 Fibonacci Series (Using Loop)
-
-Fibonacci Series up to n terms
-
-#include <stdio.h>
-
-int main() {
-    int n, a = 0, b = 1, c, i;
-
-    printf("Enter number of terms: ");
-    scanf("%d", &n);
-
-    printf("Fibonacci Series: ");
-    for (i = 1; i <= n; i++) {
-        printf("%d ", a);
-        c = a + b;
-        a = b;
-        b = c;
-    }
-    return 0;
-}
-
-📌 Example Output:
-0 1 1 2 3 5 8
-
+```sql
+CREATE OR REPLACE FUNCTION sum_1_50
+RETURN NUMBER IS
+  s NUMBER := 0;
+BEGIN
+  FOR i IN 1..50 LOOP
+    s := s + i;
+  END LOOP;
+  RETURN s;
+END;
+/
+```
 
 ---
 
-📈 Most Common Number Series (Using Loops)
+## **4. Procedure to check Odd or Even**
 
-
----
-
-1️⃣ Natural Numbers Series
-
-#include <stdio.h>
-
-int main() {
-    int i;
-    for (i = 1; i <= 10; i++)
-        printf("%d ", i);
-    return 0;
-}
-
+```sql
+CREATE OR REPLACE PROCEDURE odd_even(n NUMBER) IS
+BEGIN
+  IF MOD(n,2)=0 THEN
+    DBMS_OUTPUT.PUT_LINE('Even');
+  ELSE
+    DBMS_OUTPUT.PUT_LINE('Odd');
+  END IF;
+END;
+/
+```
 
 ---
 
-2️⃣ Even Number Series
+## **5. Sum of even numbers between 1 and 20**
 
-#include <stdio.h>
-
-int main() {
-    int i;
-    for (i = 2; i <= 20; i += 2)
-        printf("%d ", i);
-    return 0;
-}
-
-
----
-
-3️⃣ Odd Number Series
-
-#include <stdio.h>
-
-int main() {
-    int i;
-    for (i = 1; i <= 20; i += 2)
-        printf("%d ", i);
-    return 0;
-}
-
+```sql
+DECLARE
+  s NUMBER := 0;
+BEGIN
+  FOR i IN 1..20 LOOP
+    IF MOD(i,2)=0 THEN
+      s := s + i;
+    END IF;
+  END LOOP;
+  DBMS_OUTPUT.PUT_LINE('Sum = '||s);
+END;
+/
+```
 
 ---
 
-4️⃣ Square Number Series
+## **6. Insert even numbers into EVEN table and odd into ODD table (1–50)**
 
-#include <stdio.h>
-
-int main() {
-    int i;
-    for (i = 1; i <= 5; i++)
-        printf("%d ", i * i);
-    return 0;
-}
-
-📌 Output: 1 4 9 16 25
-
-
----
-
-5️⃣ Cube Number Series
-
-#include <stdio.h>
-
-int main() {
-    int i;
-    for (i = 1; i <= 5; i++)
-        printf("%d ", i * i * i);
-    return 0;
-}
-
-📌 Output: 1 8 27 64 125
-
+```sql
+BEGIN
+  FOR i IN 1..50 LOOP
+    IF MOD(i,2)=0 THEN
+      INSERT INTO even VALUES(i);
+    ELSE
+      INSERT INTO odd VALUES(i);
+    END IF;
+  END LOOP;
+END;
+/
+```
 
 ---
 
-6️⃣ Arithmetic Progression (AP)
+## **7. Salary & Bonus Calculation**
 
-#include <stdio.h>
+```sql
+DECLARE
+  v_sal NUMBER;
+  v_exp NUMBER;
+  bonus NUMBER;
+BEGIN
+  SELECT salary, experience INTO v_sal, v_exp FROM emp WHERE empid=101;
 
-int main() {
-    int a = 2, d = 3, i;
+  IF v_exp > 3 THEN
+    bonus := v_sal*12*0.12;
+  ELSE
+    bonus := 1000;
+  END IF;
 
-    for (i = 1; i <= 5; i++) {
-        printf("%d ", a);
-        a = a + d;
-    }
-    return 0;
-}
-
-📌 Output: 2 5 8 11 14
-
-
----
-
-⭐ Pattern Programs Using Loops
-
-
----
-
-1️⃣ Star Square Pattern
-
-* * *
-* * *
-* * *
-
-#include <stdio.h>
-
-int main() {
-    int i, j;
-    for (i = 1; i <= 3; i++) {
-        for (j = 1; j <= 3; j++)
-            printf("* ");
-        printf("\n");
-    }
-    return 0;
-}
-
+  DBMS_OUTPUT.PUT_LINE('Total Salary = '||(v_sal+bonus));
+END;
+/
+```
 
 ---
 
-2️⃣ Right Triangle Star Pattern
+## **8. Check multiple of 3, 5, both or none**
 
-*
-* *
-* * *
-* * * *
-
-#include <stdio.h>
-
-int main() {
-    int i, j;
-    for (i = 1; i <= 4; i++) {
-        for (j = 1; j <= i; j++)
-            printf("* ");
-        printf("\n");
-    }
-    return 0;
-}
-
-
----
-
-3️⃣ Inverted Triangle Pattern
-
-* * * *
-* * *
-* *
-*
-
-#include <stdio.h>
-
-int main() {
-    int i, j;
-    for (i = 4; i >= 1; i--) {
-        for (j = 1; j <= i; j++)
-            printf("* ");
-        printf("\n");
-    }
-    return 0;
-}
-
+```sql
+DECLARE
+  n NUMBER := &n;
+BEGIN
+  IF MOD(n,3)=0 AND MOD(n,5)=0 THEN
+    DBMS_OUTPUT.PUT_LINE('Multiple of 3 and 5');
+  ELSIF MOD(n,3)=0 THEN
+    DBMS_OUTPUT.PUT_LINE('Only 3');
+  ELSIF MOD(n,5)=0 THEN
+    DBMS_OUTPUT.PUT_LINE('Only 5');
+  ELSE
+    DBMS_OUTPUT.PUT_LINE('None');
+  END IF;
+END;
+/
+```
 
 ---
 
-4️⃣ Number Triangle Pattern
+## **9. Delete employees after leaving job**
 
-1
-1 2
-1 2 3
-1 2 3 4
-
-#include <stdio.h>
-
-int main() {
-    int i, j;
-    for (i = 1; i <= 4; i++) {
-        for (j = 1; j <= i; j++)
-            printf("%d ", j);
-        printf("\n");
-    }
-    return 0;
-}
-
+```sql
+BEGIN
+  DELETE FROM employee WHERE status='LEFT';
+END;
+/
+```
 
 ---
 
-5️⃣ Same Number Pattern
+## **10. Increase salary by ₹1000 for Deptno = 10**
 
-1
-2 2
-3 3 3
-4 4 4 4
-
-#include <stdio.h>
-
-int main() {
-    int i, j;
-    for (i = 1; i <= 4; i++) {
-        for (j = 1; j <= i; j++)
-            printf("%d ", i);
-        printf("\n");
-    }
-    return 0;
-}
-
+```sql
+BEGIN
+  UPDATE employee SET salary = salary + 1000 WHERE deptno = 10;
+END;
+/
+```
 
 ---
 
-6️⃣ Pyramid Star Pattern
+## **11. Update salary & store details in CURSOR_RET**
 
-*
-  * *
- * * *
-* * * *
+```sql
+DECLARE
+  v_count NUMBER;
+BEGIN
+  UPDATE employee SET salary=salary+2000 WHERE deptno=20;
+  v_count := SQL%ROWCOUNT;
 
-#include <stdio.h>
-
-int main() {
-    int i, j, k;
-
-    for (i = 1; i <= 4; i++) {
-        for (k = 4; k > i; k--)
-            printf(" ");
-        for (j = 1; j <= i; j++)
-            printf("* ");
-        printf("\n");
-    }
-    return 0;
-}
-
-
-⚠️ Assumption used (as per most textbooks):
-
-1 year = 365 days
-
-1 month = 30 days
-
-
+  INSERT INTO cursor_ret VALUES(20, v_count, USER);
+END;
+/
+```
 
 ---
 
-✅ C Program: Convert Days into Years, Months, and Days
+## **12. Debit Account Procedure**
 
-#include <stdio.h>
-
-int main() {
-    int days, years, months, remaining_days;
-
-    printf("Enter total number of days: ");
-    scanf("%d", &days);
-
-    years = days / 365;
-    days = days % 365;
-
-    months = days / 30;
-    remaining_days = days % 30;
-
-    printf("Years = %d\n", years);
-    printf("Months = %d\n", months);
-    printf("Days = %d\n", remaining_days);
-
-    return 0;
-}
-
+```sql
+CREATE OR REPLACE PROCEDURE debit_account(a_no NUMBER, amt NUMBER) IS
+BEGIN
+  UPDATE account SET balance = balance - amt WHERE accno = a_no;
+END;
+/
+```
 
 ---
 
-🧪 Example Output
+## **13. Procedure to create department**
 
-Input
-
-Enter total number of days: 800
-
-Output
-
-Years = 2
-Months = 2
-Days = 10
-
+```sql
+CREATE OR REPLACE PROCEDURE add_dept(dno NUMBER, dname VARCHAR2) IS
+BEGIN
+  INSERT INTO dept VALUES(dno, dname);
+END;
+/
+```
 
 ---
 
-🧠 Logic Explanation (For Viva / Exam)
+## **14. Raise salary procedure**
 
-1. Divide total days by 365 to get years
-
-
-2. Find remaining days using modulus (%)
-
-
-3. Divide remaining days by 30 to get months
-
-
-4. Remaining value gives final days
-
-
-
+```sql
+CREATE OR REPLACE PROCEDURE raise_salary(eid NUMBER, amt NUMBER) IS
+BEGIN
+  UPDATE employee SET salary=salary+amt WHERE empid=eid;
+END;
+/
+```
 
 ---
 
+## **15. Salary range function & procedure**
 
+```sql
+CREATE OR REPLACE FUNCTION check_sal(eid NUMBER, desig VARCHAR2)
+RETURN VARCHAR2 IS s NUMBER;
+BEGIN
+  SELECT salary INTO s FROM employee WHERE empid=eid;
+  IF s BETWEEN 20000 AND 50000 THEN RETURN 'IN RANGE';
+  ELSE RETURN 'OUT RANGE';
+  END IF;
+END;
+/
+```
 
+---
 
+## **16. Function to return account balance**
 
+```sql
+CREATE OR REPLACE FUNCTION get_balance(a_no NUMBER)
+RETURN NUMBER IS b NUMBER;
+BEGIN
+  SELECT balance INTO b FROM account WHERE accno=a_no;
+  RETURN b;
+END;
+/
+```
+
+---
+
+## **17. Bonus procedure using OUT parameter**
+
+```sql
+CREATE OR REPLACE PROCEDURE calc_bonus(eid NUMBER, bonus IN OUT NUMBER) IS
+BEGIN
+  bonus := bonus + 5000;
+END;
+/
+```
+
+---
+
+## **18. Withdraw amount and return balance**
+
+```sql
+CREATE OR REPLACE PROCEDURE withdraw(a_no NUMBER, amt NUMBER, bal OUT NUMBER) IS
+BEGIN
+  UPDATE account SET balance=balance-amt WHERE accno=a_no;
+  SELECT balance INTO bal FROM account WHERE accno=a_no;
+END;
+/
+```
+
+---
+
+## **19. Odd or Even (User Input)**
+
+```sql
+DECLARE n NUMBER := &n;
+BEGIN
+  IF MOD(n,2)=0 THEN
+    DBMS_OUTPUT.PUT_LINE('Even');
+  ELSE
+    DBMS_OUTPUT.PUT_LINE('Odd');
+  END IF;
+END;
+/
+```
+
+---
+
+## **20. Salesman Bonus Function**
+
+```sql
+CREATE OR REPLACE FUNCTION calc_bonus(sid NUMBER)
+RETURN NUMBER IS t NUMBER;
+BEGIN
+  SELECT targetachieved INTO t FROM salesman WHERE sid=sid;
+  IF t>=90 THEN RETURN 50000;
+  ELSIF t>=70 THEN RETURN 30000;
+  ELSE RETURN 10000;
+  END IF;
+END;
+/
+Below are **complete PL/SQL answers for Programs 21–36 (Math Programs)**, written in **clear, exam-ready format** exactly as per the **Advanced RDBMS Practical List (MCA Semester-I)** provided by **Shreyarth University** 
+
+---
+
+## **21. Check whether number is Positive, Negative or Zero**
+
+```sql
+DECLARE
+  n NUMBER := &n;
+BEGIN
+  IF n > 0 THEN
+    DBMS_OUTPUT.PUT_LINE('Positive Number');
+  ELSIF n < 0 THEN
+    DBMS_OUTPUT.PUT_LINE('Negative Number');
+  ELSE
+    DBMS_OUTPUT.PUT_LINE('Zero');
+  END IF;
+END;
+/
+```
+
+---
+
+## **22. Update salary to 30000 if less than 30000**
+
+```sql
+DECLARE
+  v_empid NUMBER := &empid;
+  v_sal NUMBER;
+BEGIN
+  SELECT salary INTO v_sal FROM employee WHERE empid = v_empid;
+
+  IF v_sal < 30000 THEN
+    UPDATE employee SET salary = 30000 WHERE empid = v_empid;
+  END IF;
+END;
+/
+```
+
+---
+
+## **23. Greatest of three numbers**
+
+```sql
+DECLARE
+  a NUMBER := &a;
+  b NUMBER := &b;
+  c NUMBER := &c;
+BEGIN
+  IF a > b AND a > c THEN
+    DBMS_OUTPUT.PUT_LINE('Greatest = '||a);
+  ELSIF b > c THEN
+    DBMS_OUTPUT.PUT_LINE('Greatest = '||b);
+  ELSE
+    DBMS_OUTPUT.PUT_LINE('Greatest = '||c);
+  END IF;
+END;
+/
+```
+
+---
+
+## **24. Count students between percentage range (OUT parameter)**
+
+```sql
+CREATE OR REPLACE PROCEDURE count_student(
+  low NUMBER,
+  high NUMBER,
+  total OUT NUMBER
+) IS
+BEGIN
+  SELECT COUNT(*) INTO total
+  FROM student
+  WHERE percentage BETWEEN low AND high;
+END;
+/
+```
+
+---
+
+## **25. Add, Subtract, Multiply, Divide two numbers**
+
+```sql
+DECLARE
+  a NUMBER := &a;
+  b NUMBER := &b;
+BEGIN
+  DBMS_OUTPUT.PUT_LINE('Addition = '||(a+b));
+  DBMS_OUTPUT.PUT_LINE('Subtraction = '||(a-b));
+  DBMS_OUTPUT.PUT_LINE('Multiplication = '||(a*b));
+  DBMS_OUTPUT.PUT_LINE('Division = '||(a/b));
+END;
+/
+```
+
+---
+
+## **26. Area of Rectangle**
+
+```sql
+DECLARE
+  l NUMBER := &length;
+  b NUMBER := &breadth;
+BEGIN
+  DBMS_OUTPUT.PUT_LINE('Area = '||(l*b));
+END;
+/
+```
+
+---
+
+## **27. Area of Square**
+
+```sql
+DECLARE
+  s NUMBER := &side;
+BEGIN
+  DBMS_OUTPUT.PUT_LINE('Area = '||(s*s));
+END;
+/
+```
+
+---
+
+## **28. Area of Circle**
+
+```sql
+DECLARE
+  r NUMBER := &radius;
+  pi CONSTANT NUMBER := 3.14;
+BEGIN
+  DBMS_OUTPUT.PUT_LINE('Area = '||(pi*r*r));
+END;
+/
+```
+
+---
+
+## **29. Volume of Cylinder**
+
+```sql
+DECLARE
+  r NUMBER := &radius;
+  h NUMBER := &height;
+  pi CONSTANT NUMBER := 3.14;
+BEGIN
+  DBMS_OUTPUT.PUT_LINE('Volume = '||(pi*r*r*h));
+END;
+/
+```
+
+---
+
+## **30. Circumference of Circle**
+
+```sql
+DECLARE
+  r NUMBER := &radius;
+  pi CONSTANT NUMBER := 3.14;
+BEGIN
+  DBMS_OUTPUT.PUT_LINE('Circumference = '||(2*pi*r));
+END;
+/
+```
+
+---
+
+## **31. Convert Kilometer to Meter**
+
+```sql
+DECLARE
+  km NUMBER := &km;
+BEGIN
+  DBMS_OUTPUT.PUT_LINE('Meters = '||(km*1000));
+END;
+/
+```
+
+---
+
+## **32. Interchange two variables without third variable**
+
+```sql
+DECLARE
+  a NUMBER := &a;
+  b NUMBER := &b;
+BEGIN
+  a := a + b;
+  b := a - b;
+  a := a - b;
+
+  DBMS_OUTPUT.PUT_LINE('a = '||a);
+  DBMS_OUTPUT.PUT_LINE('b = '||b);
+END;
+/
+```
+
+---
+
+## **33. Volume of Cone**
+
+```sql
+DECLARE
+  r NUMBER := &radius;
+  h NUMBER := &height;
+  pi CONSTANT NUMBER := 3.14;
+BEGIN
+  DBMS_OUTPUT.PUT_LINE('Volume = '||((1/3)*pi*r*r*h));
+END;
+/
+```
+
+---
+
+## **34. Convert Meter to Centimeter**
+
+```sql
+DECLARE
+  m NUMBER := &meter;
+BEGIN
+  DBMS_OUTPUT.PUT_LINE('Centimeters = '||(m*100));
+END;
+/
+```
+
+---
+
+## **35. Simple Interest**
+
+```sql
+DECLARE
+  p NUMBER := &principal;
+  r NUMBER := &rate;
+  n NUMBER := &time;
+BEGIN
+  DBMS_OUTPUT.PUT_LINE('Simple Interest = '||((p*r*n)/100));
+END;
+/
+```
+
+---
+
+## **36. Calculate 10% Bonus of Salary**
+
+```sql
+DECLARE
+  sal NUMBER := &salary;
+BEGIN
+  DBMS_OUTPUT.PUT_LINE('Bonus = '||(sal*0.1));
+END;
+/
