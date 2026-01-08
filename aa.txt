@@ -1,0 +1,454 @@
+
+8. DECLARE
+N NUMBER(2);
+
+
+BEGIN 
+
+N := 1;
+
+FOR N IN 1..10
+LOOP 
+  IF N MOD 2=0 THEN
+    DBMS_OUTPUT.PUT_LINE(N||'IS EVEN');
+  ELSE
+   DBMS_OUTPUT.PUT_LINE(N||'IS ODD');
+  
+  END IF;
+   
+END LOOP;
+
+END;
+
+9. DECLARE
+N NUMBER(2);
+ANS NUMBER(2);
+
+
+BEGIN 
+
+N := 1;
+
+FOR N IN 1..10
+LOOP 
+  ANS := N * N+1;
+    DBMS_OUTPUT.PUT_LINE(ANS||' IS EVEN NUMBER');
+  ELSE
+   DBMS_OUTPUT.PUT_LINE(N||' IS ODD NUMBER');
+  
+  END IF;
+   
+END LOOP;
+
+END;
+
+
+
+22.DECLARE
+    N   NUMBER(9) := 123;
+    N1  NUMBER(9) := N;
+    REM NUMBER(9);
+    REV NUMBER(9) := 0;
+    F   NUMBER(9) := 0;
+BEGIN
+
+    WHILE N > 0 LOOP
+        REM := MOD(N, 10);     
+        F   := F + REM;       
+        REV := (REV * 10) + REM;  
+        N   := TRUNC(N / 10);  
+    END LOOP;
+
+    IF N1 = REV THEN
+        DBMS_OUTPUT.PUT_LINE('THIS IS PALINDROME');
+    ELSE
+        DBMS_OUTPUT.PUT_LINE('THIS IS NOT PALINDROME');
+    END IF;
+
+END;
+
+
+
+23.declare
+
+mno number(10);
+mname varchar2(20);
+mpr number(5,2);
+
+begin
+
+mno := :enter_roll_no;
+
+select name into mno from students2 where roll_no = mno;
+select pr into mpr where students2 where roll_no = mno;
+
+if mpr >= 50 then
+dbms_output.put_line("regular student");
+else
+dbms_output.put_line("not regular student");
+end if;
+end;
+
+24.declare
+
+mno number(10);
+mname varchar2(20);
+mpr number(5,2);
+
+begin
+
+mno := :enter_roll_no;
+
+select name into mno from student2 where roll_no = mno;
+select pr into mpr from student2 where roll_no = mno;
+
+if mpr >= 50 then
+dbms_output.put_line("regular student");
+else
+dbms_output.put_line("not regular student");
+end if;
+end;
+
+25.declare
+c_rollno student2.ROLL_NO%TYPE;
+c_name student2.NAME%TYPE;
+c_pr student2.PR%TYPE;
+
+ CURSOR C_ATTANDANCE IS
+   SELECT ROLL_NO,NAME,PR FROM student2;
+
+begin
+ OPEN C_ATTANDANCE;
+LOOP
+ FETCH C_ATTANDANCE INTO c_rollno,c_name,c_pr;
+ EXIT WHEN C_ATTANDACE%NOTFOUND;
+  DBMS_OUTPUT.PUT_LINE(c_rollno||''||c_name||''||c_pr);
+ if c_pr<=70 THEN
+   UPDATE STUDENT2 SET STATUS='IRREGULAR' WHERE ROLL_NO = c_rollno;
+end if;
+end loop;
+end;
+
+26.declare
+c_rollno student2.ROLL_NO%TYPE;
+c_name student2.NAME%TYPE;
+c_pr student2.PR%TYPE;
+
+ CURSOR C_ATTANDANCE IS
+   SELECT ROLL_NO,NAME,PR FROM student2;
+
+begin
+ OPEN C_ATTANDANCE;
+LOOP
+ FETCH C_ATTANDANCE INTO c_rollno,c_name,c_pr;
+ EXIT WHEN C_ATTANDANCE%NOTFOUND;
+  DBMS_OUTPUT.PUT_LINE(c_rollno||''||c_name||''||c_pr);
+ if c_pr<=70 THEN
+   UPDATE STUDENT2 SET STATUS='IRREGULAR' WHERE ROLL_NO = c_rollno;
+end if;
+end loop;
+end;
+
+31.declare
+c_rollno student2.ROLL_NO%TYPE;
+c_name student2.NAME%TYPE;
+ --c_raw student2%rowtype;
+N number(3) ;
+
+begin
+
+select NAME into c_name from student2 where roll_no>1;
+--N := 5/0;
+update student2 set roll_no = 5 where name= 'irfan';
+
+exception
+when no_data_found then
+   dbms_output.put_line('no data has been foound');
+when zero_divide then 
+   dbms_output.put_line('zero divide exception');
+when too_many_rows then
+   dbms_output.put_line('too many rows');
+when dup_val_on_index then
+  dbms_output.put_line('duplicate values on index not allowed');
+end;
+
+32.create or replace procedure addnums(n1 in number, n2 in number, ans out number)
+is
+begin
+ ans := n1+n2;
+end addnums;
+/
+
+declare
+
+num1 number(3);
+num2 number(3);
+num3 number(3);
+ans number(3);
+--ans2 number(3);
+
+ begin
+ 
+num1 := 3;
+num2 := 4;
+num3 := 5;
+
+addnums(num1,num2,ans);
+dbms_output.put_line(ans);
+
+multi(num1,num2,num3,ans2);
+dbms_output.put_line(ans2);
+
+end
+
+,declare
+
+num1 number(3);
+num2 number(3);
+num3 number(3);
+ans number(3);
+ans2 number(3);
+
+ begin
+ 
+num1 := 3;
+num2 := 4;
+num3 := 5;
+
+addnums(num1,num2,ans);
+dbms_output.put_line(ans);
+
+multi(num1,num2,num3,ans2);
+dbms_output.put_line(ans2);
+
+end
+
+
+
+33.create or replace procedure reverse(num1 in number, rem out number, rev out number)
+is
+begin
+  WHILE num1>0
+LOOP
+ REM:= number MOD 10;
+
+ REV:= (REV*10) + REM;
+ num1:= num1/10;
+END LOOP;
+DBMS_OUTPUT.PUT_LINE(REV);
+end;
+end reverse;
+/
+
+
+34.create or replace procedure reverse_num(num1 in number, rev out number)
+is
+
+rem number;
+r number;
+
+begin
+
+r := 0;
+rem := 0;
+
+WHILE num1>0
+LOOP
+ REM:= num1 MOD 10;
+ r:= (r*10) + REM;
+ num1:= num1/10;
+END LOOP;
+rev := r;
+DBMS_OUTPUT.PUT_LINE(r);
+end reverse_num;
+
+/
+
+
+35.create or replace procedure reverse_num(num1 in number, rev out number)
+is
+
+rem number;
+r number;
+
+begin
+
+r := 0;
+rem := 0;
+
+WHILE num1>0
+LOOP
+ rem := num1 MOD 10;
+ r := (r*10) + rem;
+ num1 := trunc(num1/10);
+END LOOP;
+
+end reverse_num;
+
+/
+
+
+
+36.create or replace procedure reverse_num(num1 in number, rev out number)
+is
+rem number;
+r number;
+begin
+rev := 0;
+rem := 0;
+WHILE num1>0
+LOOP
+ rem := num1 MOD 10;
+ rev := (rev*10) + rem;
+ num1 := trunc(num1/10);
+END LOOP;
+end reverse_num;
+/
+
+
+
+37.create or replace procedure reverse_num(num1 in number, rev out number)
+is
+rem number;
+n1 number := num1;
+begin
+rev := 0;
+rem := 0;
+
+WHILE num1>0
+LOOP
+ rem := n1 MOD 10;
+ rev := (rev*10) + rem;
+ n1 := trunc(n1/10);
+END LOOP;
+end reverse_num;
+/
+
+
+
+38.declare
+
+num1 number(3);
+num2 number(3);
+num3 number(3);
+ans number(3);
+ans2 number(3);
+
+ begin
+ 
+num1 := 3;
+num2 := 4;
+num3 := 5;
+ognum := 4536;
+
+addnums(num1,num2,ans);
+dbms_output.put_line(ans);
+
+multi(num1,num2,num3,ans2);
+dbms_output.put_line(ans2);
+revrese_num(ognum,ans);
+dbms_output.put_line(ans);
+
+end
+
+39.declare
+
+begin
+revrese_num(38823);
+end;
+
+
+40.CREATE OR REPLACE FUNCTION FADDNUMS(N1 IN NUMBER, N2 IN NUMBER) RETURN NUMBER
+IS
+ANS NUMBER(4);
+
+BEGIN
+ANS:=N1 + N2;
+RETURN ANS;
+END FADDNUMS;
+/
+
+,DECLARE
+A NUMBER(3);
+B NUMBER(3);
+
+BEGIN
+A := :A;
+B := :B;
+
+DBMS_OUTPUT.PUT_LINE(FMULTINUMS(A,B));
+END;
+
+
+41.
+CREATE OR REPLACE FUNCTION FMULTINUMS(N1 IN NUMBER, N2 IN NUMBER) RETURN NUMBER
+IS
+ANS NUMBER(4);
+
+BEGIN
+ANS:=N1 * N2;
+RETURN ANS;
+END FMULTINUMS;
+/
+
+
+DECLARE
+  n NUMBER := &n;
+  rev NUMBER := 0;
+  rem NUMBER;
+BEGIN
+  WHILE n > 0 LOOP
+    rem := MOD(n,10);
+    rev := rev * 10 + rem;
+    n := TRUNC(n/10);
+  END LOOP;
+
+  DBMS_OUTPUT.PUT_LINE('Reversed Number = ' || rev);
+END;
+/
+
+
+DECLARE
+  n NUMBER := &n;
+  temp NUMBER;
+  rev NUMBER := 0;
+  rem NUMBER;
+BEGIN
+  temp := n;
+
+  WHILE n > 0 LOOP
+    rem := MOD(n,10);
+    rev := rev * 10 + rem;
+    n := TRUNC(n/10);
+  END LOOP;
+
+  IF temp = rev THEN
+    DBMS_OUTPUT.PUT_LINE('Number is Palindrome');
+  ELSE
+    DBMS_OUTPUT.PUT_LINE('Number is Not Palindrome');
+  END IF;
+END;
+/
+
+
+DECLARE
+  n NUMBER := &n;
+  a NUMBER := 0;
+  b NUMBER := 1;
+  c NUMBER;
+  i NUMBER := 1;
+BEGIN
+  DBMS_OUTPUT.PUT_LINE('Fibonacci Series:');
+
+  WHILE i <= n LOOP
+    DBMS_OUTPUT.PUT_LINE(a);
+    c := a + b;
+    a := b;
+    b := c;
+    i := i + 1;
+  END LOOP;
+END;
+/
+
+
+
